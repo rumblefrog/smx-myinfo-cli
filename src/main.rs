@@ -4,15 +4,6 @@ use std::io::{Read, Cursor, Seek, SeekFrom};
 use byteorder::{ReadBytesExt, LittleEndian};
 use smxdasm::file::SMXFile;
 
-#[derive(Debug)]
-struct PluginInfo {
-    name: String,
-    description: String,
-    author: String,
-    version: String,
-    url: String,
-}
-
 fn main() {
     let path: PathBuf = PathBuf::from(std::env::args().nth(1).expect("No File Provided"));
 
@@ -65,13 +56,9 @@ fn main() {
         String::from_utf8_lossy(&str_vec[..]).into_owned()
     };
 
-    let s = PluginInfo {
-        name: read_string(0),
-        description: read_string(1),
-        author: read_string(2),
-        version: read_string(3),
-        url: read_string(4),
-    };
-
-    println!("{:?}", s);
+    println!("Name: {}", read_string(0));
+    println!("Description: {}", read_string(1));
+    println!("Author: {}", read_string(2));
+    println!("Version: {}", read_string(3));
+    println!("URL: {}", read_string(4));
 }
